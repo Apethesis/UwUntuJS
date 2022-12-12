@@ -3,13 +3,29 @@ const fs = require('fs');
 const port = 9551;
 
 app.get('/download', (req, res) => {
-  if (req.query.type == 'installer') {
-    res.sendFile(__dirname + `/files/installer/installer-${req.query.branch}.lua`);
-  } else if (req.query.type == 'orangebox') {
-    res.sendFile(__dirname + `/files/orangebox/UwUntuCC-${req.query.branch}.vgz`);
-  } else if (req.query.type == 'source') {
-    res.sendFile(__dirname + `/files/source/UwUntuCC-${req.query.branch}.zip`);
-  } 
+
+  switch((req.query.type, req.query.branch)) {
+    case ('installer', 'dev'):
+      res.sendFile(__dirname + `/files/installer/installer-dev.lua`);
+    break
+    case ('installer', 'master'):
+      res.sendFile(__dirname + `/files/installer/installer-master.lua`);
+    break
+    case ('orangebox', 'dev'):
+      res.sendFile(__dirname + `/files/orangebox/UwUntuCC-dev.vgz`);
+    break
+    case ('orangebox', 'master'):
+      res.sendFile(__dirname + `/files/orangebox/UwUntuCC-master.vgz`);
+    break
+    case ('source', 'dev'):
+      res.sendFile(__dirname + `/files/source/UwUntuCC-dev.zip`);
+    break
+    case ('source', 'master'):
+      res.sendFile(__dirname + `/files/source/UwUntuCC-master.zip`);
+    break
+    default:
+      res.send("Invalid Endpoint")
+  }
 });
 
 app.get('/store/:item', (req, res) => {
