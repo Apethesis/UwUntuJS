@@ -17,7 +17,7 @@ app.get('/store/:item', (req, res) => {
   if (fs.existsSync(fpath)) {
     res.sendFile(fpath);
   } else {
-    res.status(404).send(`notFound`).end();
+    res.status(404).send('notFound').end();
   }
 });
 
